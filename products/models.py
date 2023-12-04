@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -24,6 +25,13 @@ class Product (models.Model):
     tags = TaggableManager()
 
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product,self).save(*args , **kwargs)
+
+
+
+
 
 class ProductImage (models.Model):
     product = models.ForeignKey(Product,related_name='product_image',on_delete=models.CASCADE)
@@ -34,8 +42,9 @@ class Brand (models.Model):
     image = models.ImageField(upload_to='brand')
 
 class Review (models.Model):
-    auth = models.ForeignKey(User,related_name='review_user',on_delete=models.SET_NULL,null=True)
-    review = models.CharField(max_length=300)
-    rate = models.IntegerField(choices='')
+    user = models.ForeignKey(User,related_name='review_user',on_delete=models.SET_NULL,null=True)
+    product = models.ForeignKey(Product,related_name='review_product',on_delete=models.CASCADE)
+    review = models.CharField(max_length=500)
+    rate = models.IntegerField(choices=[(i,i) for i in range(1,6)])
     created_at = models.DateTimeField(default=timezone.now())
 
