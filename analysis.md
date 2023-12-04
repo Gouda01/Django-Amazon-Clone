@@ -1,7 +1,7 @@
 Products :
     data :
         - name
-        - flag ( new , sale )
+        - flag ( new , sale , feature )
         - price
         - image
         - review :
@@ -21,6 +21,7 @@ Products :
         - tags
         - related
         - description
+        - slug
 
     function :
     - List
