@@ -49,7 +49,7 @@ class Brand (models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Product,self).save(*args , **kwargs)
+        super(Brand,self).save(*args , **kwargs)
 
     def __str__(self):
         return self.name
