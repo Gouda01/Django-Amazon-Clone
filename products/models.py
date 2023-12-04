@@ -46,6 +46,7 @@ class Brand (models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product,self).save(*args , **kwargs)
+        
 
 class Review (models.Model):
     user = models.ForeignKey(User,related_name='review_user',on_delete=models.SET_NULL,null=True)
