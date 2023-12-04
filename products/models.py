@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -12,8 +13,8 @@ FLAG_TYPE = (
     ('Feature','Feature'),
 )
 class Product (models.Model):
-    name = models.CharField(max_length=120)
-    flag = models.CharField(max_length=10 , choices=FLAG_TYPE)
+    name = models.CharField(max_length=120,verbose_name=_('name'))
+    flag = models.CharField(verbose_name=_('flag'),max_length=10 , choices=FLAG_TYPE)
     price = models.FloatField()
     image = models.ImageField(upload_to='product')
     sku = models.IntegerField()
@@ -46,7 +47,7 @@ class Brand (models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product,self).save(*args , **kwargs)
-        
+
 
 class Review (models.Model):
     user = models.ForeignKey(User,related_name='review_user',on_delete=models.SET_NULL,null=True)
