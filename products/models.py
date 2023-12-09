@@ -18,7 +18,7 @@ class Product (models.Model):
     price = models.FloatField(_('price'))
     image = models.ImageField(_('image'),upload_to='product')
     sku = models.IntegerField(_('sku'))
-    subtitle = models.CharField(_('subtitle'),max_length=500)
+    subtitle = models.TextField(_('subtitle'),max_length=500)
     description = models.TextField(_('description'),max_length=50000)
 
     brand = models.ForeignKey('Brand',related_name='product_brand',on_delete=models.SET_NULL,null=True,verbose_name=_('brand'))
