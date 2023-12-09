@@ -1,4 +1,10 @@
+
 {% extends "base.html" %}
+{% load static %}
+
+        {% block css %}
+        <link rel="stylesheet" href="{% static 'en/css/product-details.css' %}">
+        {% endblock %}
 
         {% block body %}
 
@@ -797,3 +803,7 @@
         =======================================-->
 
         {% endblock body %}
+
+        {% block js %}
+        
+        {% endblock %}
