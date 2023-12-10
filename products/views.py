@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product,Brand,Review
+from .models import Product,Brand,Review,ProductImage
 from django.views.generic import ListView , DetailView
 
 
@@ -15,4 +15,5 @@ class ProductDetail (DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["reviews"] = Review.objects.filter(product = self.get_object())
+        context["images"] = ProductImage.objects.filter(product = self.get_object())
         return context
