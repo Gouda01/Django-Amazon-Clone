@@ -72,7 +72,10 @@
                                 </div>
                                 <div class="brand-meta">
                                     <h4>{{ object.name }}</h4>
-                                    <p>(45 items)</p>
+                                    
+                                        <p>({{object.product_brand.all | length}} items)</p>
+                                        
+                                    
                                 </div>
                             </div>
                         </div>
