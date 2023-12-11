@@ -27,6 +27,7 @@ class BrandList (ListView) :
 
 class BrandDetail (ListView):
     model = Product
+    paginate_by = 50
     template_name = 'products/brand_detail.html'
 
     # Return Products of the brand
