@@ -4,15 +4,32 @@ from .models import Brand,Product
 
 class ProductListSerializer (serializers.ModelSerializer):
     brand = serializers.StringRelatedField()   # To return brand name not id
+    review_count = serializers.SerializerMethodField() # To Show Review count
     class Meta :
         model = Product
         fields = '__all__'
 
+
+    # To Show Review count
+    def get_review_count(self,object): 
+        reviews = object.review_product.all().count()
+        return reviews
+
+
+
 class ProductDetailSerializer (serializers.ModelSerializer):
     brand = serializers.StringRelatedField()
+    review_count = serializers.SerializerMethodField() # To Show Review count
     class Meta :
         model = Product
         fields = '__all__'
+
+    # To Show Review count
+    def get_review_count(self,object): 
+        reviews = object.review_product.all().count()
+        return reviews
+    
+    
 
 class BrandListSerializer (serializers.ModelSerializer):
     class Meta :
