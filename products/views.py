@@ -5,6 +5,29 @@ from django.views.generic import ListView , DetailView
 
 # Create your views here.
 
+
+
+def mydebug(request):
+
+    # Column Number -----------------
+    # data = Product.objects.all()  #All
+    # data = Product.objects.filter(price = 20)   
+    # data = Product.objects.filter(price__gt = 98)  #Price Greater than 98
+    # data = Product.objects.filter(price__gte = 98)  #Price greater than or equal 98
+    # data = Product.objects.filter(price__lt = 98)  #Price less than  98
+    # data = Product.objects.filter(price__lte = 98)  #Price less than or equal 98
+    # data = Product.objects.filter(price__range = (80,83))  #Price Between 80 and 83
+
+
+    # Relation -----------------
+    data = Product.objects.filter(brand=5)
+
+    return render (request,'products/debug.html',{'data':data})
+
+
+
+
+
 class ProductList (ListView) :
     model = Product
     paginate_by = 50
