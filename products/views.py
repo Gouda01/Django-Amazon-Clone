@@ -20,7 +20,14 @@ def mydebug(request):
 
 
     # Relation -----------------
-    data = Product.objects.filter(brand=5)
+    # data = Product.objects.filter(brand__id = 5)
+    # data = Product.objects.filter(brand__id__gt = 150)
+
+
+    # Text ----------------------
+    # data = Product.objects.filter(name__contains = 'Joseph')
+    # data = Product.objects.filter(name__startswith = 'Joseph')
+    data = Product.objects.filter(name__endswith = 'Joseph')
 
     return render (request,'products/debug.html',{'data':data})
 
