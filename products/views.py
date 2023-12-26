@@ -27,7 +27,21 @@ def mydebug(request):
     # Text ----------------------
     # data = Product.objects.filter(name__contains = 'Joseph')
     # data = Product.objects.filter(name__startswith = 'Joseph')
-    data = Product.objects.filter(name__endswith = 'Joseph')
+    # data = Product.objects.filter(name__endswith = 'Joseph')
+    # data = Product.objects.filter(price__isnull = True) #Price is null
+    # data = Product.objects.filter(price__isnull = False) #Price is not null
+    
+
+    # Date ----------------------
+    # data = Product.objects.filter(created_at__year = 2022) 
+    # data = Product.objects.filter(created_at__month = 2) 
+    # data = Product.objects.filter(created_at__day = 12) 
+    
+
+    # Complex Queries ----------------------
+    # data = Product.objects.filter(flag = 'New',price__gt = 98) # 2 Conditions
+    data = Product.objects.filter(flag = 'New').filter(price__gt = 98) # same 2 Conditions
+    
 
     return render (request,'products/debug.html',{'data':data})
 
