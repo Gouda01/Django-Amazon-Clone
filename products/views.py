@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.db.models import Q , F
+from django.db.models.aggregates import Count,Sum,Avg,Max,Min
+
+
 from .models import Product,Brand,Review,ProductImage
 from django.views.generic import ListView , DetailView
 
@@ -40,8 +44,60 @@ def mydebug(request):
 
     # Complex Queries ----------------------
     # data = Product.objects.filter(flag = 'New',price__gt = 98) # 2 Conditions
-    data = Product.objects.filter(flag = 'New').filter(price__gt = 98) # same 2 Conditions
+    # data = Product.objects.filter(flag = 'New').filter(price__gt = 98) # same 2 Conditions
+
+    # data = Product.objects.filter(
+    #     Q(flag = 'New') &
+    #     Q(price__gt = 98)
+    #     ) # 2 Conditions  flag new AND price greater than 98
+
+    # data = Product.objects.filter(
+    #     Q(flag = 'New') |
+    #     Q(price__gt = 98)
+    #     )  # 2 Conditions  flag new OR price greater than 98
     
+    # data = Product.objects.filter(
+    #     ~ Q(flag = 'New') |
+    #     Q(price__gt = 98)
+    #     )  # 2 Conditions  flag not new OR price greater than 98
+    
+
+    # field reference ---------------------
+    # data = Product.objects.filter(quantity = F('price')) # Quantity coulum = Price coulum
+    # data = Product.objects.filter(quantity = F('brand__id')) # Quantity coulum = id coulum in Brand (Relation) 
+
+
+    # Order ---------------------
+    # data = Product.objects.order_by('name') # Order by name from a to z
+    # data = Product.objects.order_by('-name') # Order by name from z to a
+    # data = Product.objects.order_by('-name','price') # Order by name from z to a AND price fro big to little
+    # data = Product.objects.order_by('name') [:10] # Order by name from a to z and show first 10
+    # data = Product.objects.earliest('name') # Order by name from a to z and show first one
+    # data = Product.objects.latest('name') # Order by name from a to z and show last one
+
+
+    # Lmimit Fields ------------------
+    # data = Product.objects.values('name','price') # To show all but get name and price coulums only
+    # data = Product.objects.values_list('name','price') # To show all but get name and price coulums only
+    # data = Product.objects.defer('subtitle') #To show all and get all coulums except subtitle
+
+
+    # Lmimit related ------------------
+    # data = Product.objects.select_related('brand').all() # One To One And One To Many Relation
+    # data = Product.objects.select_related('brand').all() # Many To Many Relation
+    # data = Product.objects.select_related('brand').select_related('category').all()
+
+
+    # Aggregation : Count - Min - Max - Sum - AVG ------------------
+    # data = Product.objects.aggregate(
+    #     myavg = Avg('price'),
+    #     mycount=Count('id'),
+    #     mysum=Sum('price'),
+    # )
+
+
+    # Annotation :
+    data = Product.objects.annotate(price_with_tax = F('price')*1.14)
 
     return render (request,'products/debug.html',{'data':data})
 
