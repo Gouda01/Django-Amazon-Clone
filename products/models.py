@@ -35,11 +35,13 @@ class Product (models.Model):
         return self.name
     
     # To Show Review count
+    @property
     def review_count(self): 
         reviews = self.review_product.all().count()
         return reviews
 
     # To Show Review Average
+    @property
     def avg_rate(self): 
         reviews = self.review_product.all()
         total = 0
