@@ -33,6 +33,27 @@ class Product (models.Model):
 
     def __str__(self):
         return self.name
+    
+    # To Show Review count
+    def review_count(self): 
+        reviews = self.review_product.all().count()
+        return reviews
+
+    # To Show Review Average
+    def avg_rate(self): 
+        reviews = self.review_product.all()
+        total = 0
+
+        for item in reviews :
+            total += item.rate
+        if len(reviews) > 0 :
+            avg = total / len(reviews)
+        else:
+            avg = 0
+        return avg
+    
+    class Meta :
+        ordering =['id']
 
 
 
