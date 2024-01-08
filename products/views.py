@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.db.models import Q , F
 from django.db.models.aggregates import Count,Sum,Avg,Max,Min
 from django.views.decorators.cache import cache_page
@@ -147,3 +147,18 @@ class BrandDetail (ListView):
         return context
     
     
+
+def add_review (request,slug) :
+    product = Product.objects.get(slug=slug)
+
+    review = request.POST['review']
+    rate = request.POST['rating']
+
+    Review.objects.create(
+        user = request.user,
+        product = product,
+        review = review ,
+        rate = rate ,
+    )
+
+    return redirect(f'/products/{slug}')
