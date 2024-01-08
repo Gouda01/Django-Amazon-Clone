@@ -113,9 +113,14 @@
                     <a href="index.html" class="header-logo">
                         <img src="{{ settings_data.logo.url }}" alt="logo">
                     </a>
+
                     <a href="login.html" class="header-widget" title="My Account">
+                        {% if user.is_authenticated %}
                         <img src="images/user.png" alt="user">
-                        <span>join</span>
+                        {% else %}
+                        <span>Login</span>
+                        <span>Signup</span>
+                        {% endif %}
                     </a>
 
                     <form class="header-form">
