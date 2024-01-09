@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     #Apps
     'products',
     'settings',
+    'orders',
+    'accounts',
 ]
 
 #Restapi
