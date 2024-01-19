@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
+from django.db.models.aggregates import Sum
 
 from utils.generate_code import generate_code
 from products.models import Product
@@ -49,6 +50,17 @@ class Cart(models.Model):
     status = models.CharField(choices=CART_STATUS, max_length=12)
     coupon = models.ForeignKey('Coupon',related_name='cart_coupon',on_delete=models.SET_NULL,null=True,blank=True)
     total_with_coupon = models.FloatField(null=True,blank=True)
+
+
+    @property
+    def cart_total(self):
+        # total = 0
+        # for item in self.cart_detail.all():
+        #     total += item.total
+        # return round(total,2)
+
+        total = self.cart_detail.aggregate(Sum('total'))['total__sum'] or 0.00
+        return round(total,2)
 
 
 class CartDetail(models.Model):
