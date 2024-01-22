@@ -29,15 +29,15 @@ def checkout(request):
             today_date = datetime.datetime.today().date()
             if today_date >= coupon.start_date and today_date <= coupon.end_date :
                 coupon_value = round(cart.cart_total / 100 * coupon.discount,2)
-                sub_total = cart.cart_total - coupon_value
-                total = sub_total + delivery_fee
+                sub_total = round(cart.cart_total - coupon_value,2)
+                total = round(sub_total + delivery_fee,2)
 
                 cart.coupon = coupon
                 cart.total_with_coupon = sub_total
                 cart.save()
 
                 coupon.quantity -= 1
-                coupon.save
+                coupon.save()
 
                 return render(request,'orders/checkout.html',{
                     'cart_detail' : cart_detail,
