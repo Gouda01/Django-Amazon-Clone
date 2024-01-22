@@ -5,19 +5,19 @@ from .models import Order , OrderDetail , Cart , CartDetail
 
 class CartDetailSerializer(serializers.ModelSerializer):
     class Meta :
-        model = Cart
+        model = CartDetail
         fields = '__all__'
 
 class CartSerializer(serializers.ModelSerializer):
     cart_detail = CartDetailSerializer(many=True)
     class Meta :
-        model = CartDetail
+        model = Cart
         fields = '__all__'
 
 class OrderDetailSerializer (serializers.ModelSerializer):
     class Meta :
         model = OrderDetail
-        fileds = '__all__'
+        fields = '__all__'
 
 class OrderSerializer  (serializers.ModelSerializer):
     order_detail = OrderDetailSerializer (many=True)
