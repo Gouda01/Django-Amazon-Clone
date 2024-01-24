@@ -92,22 +92,26 @@
                                 </ul>
                             </div>
                             <div class="details-add-group">
-
-                                <form action="/orders/add-to-cart" method="post" class="row">
-                                    {% csrf_token %}
-                                    <div class="col-lg-6">
-                                        <input class="action-input" title="Quantity Number" type="number" name="quantity" value="1">
-                                        <input name="product_id" type="hidden" value="{{ object.id }}">
+                                
+                                {% if object.quantity > 0 %}
+                                    <form action="/orders/add-to-cart" method="post" class="row">
+                                        {% csrf_token %}
+                                        <div class="col-lg-6">
+                                            <input class="action-input" title="Quantity Number" type="number" name="quantity" value="1">
+                                            <input name="product_id" type="hidden" value="{{ object.id }}">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button class="product-add" title="Add to Cart">
+                                                <i class="fas fa-shopping-basket"></i>
+                                                <span>add to cart</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                {% else %}
+                                    <div class="details-label off">
+                                        <h4 class="text-white">Out of Stock</h4>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <button class="product-add" title="Add to Cart">
-                                            <i class="fas fa-shopping-basket"></i>
-                                            <span>add to cart</span>
-                                        </button>
-                                    </div>
-
-
-                                </form>
+                                {% endif %}
                                 
                                 
                             </div>
